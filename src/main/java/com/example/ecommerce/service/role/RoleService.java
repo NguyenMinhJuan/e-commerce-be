@@ -1,6 +1,6 @@
 package com.example.ecommerce.service.role;
 
-import com.example.ecommerce.repository.IProductRepo;
+import com.example.ecommerce.model.Role;
 import com.example.ecommerce.repository.IRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +30,10 @@ public class RoleService implements IRoleService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public Role findByName(String name) {
+        return roleRepo.findByRoleName(name);
     }
 }
