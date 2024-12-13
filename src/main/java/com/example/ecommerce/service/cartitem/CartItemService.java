@@ -1,5 +1,6 @@
 package com.example.ecommerce.service.cartitem;
 
+import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.CartItem;
 import com.example.ecommerce.repository.ICartItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class CartItemService implements ICartItemService {
     @Override
     public void delete(Long id) {
         cartItemRepo.deleteById(id);
+    }
+
+    @Override
+    public Iterable<CartItem> findAllByCart(Cart cart) {
+        return cartItemRepo.findAllByCart(cart);
     }
 }
