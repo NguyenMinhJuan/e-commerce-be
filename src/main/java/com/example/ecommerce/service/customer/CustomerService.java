@@ -1,31 +1,30 @@
-package com.example.ecommerce.service.cart;
+package com.example.ecommerce.service.customer;
 
-import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.Customer;
 import com.example.ecommerce.model.User;
-import com.example.ecommerce.repository.ICartRepo;
+import com.example.ecommerce.repository.ICustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CartService implements ICartService {
+public class CustomerService implements ICustomerService {
     @Autowired
-    ICartRepo cartRepo;
+    ICustomerRepo customerRepo;
 
     @Override
-    public Iterable<Cart> findAll() {
+    public Iterable<Customer> findAll() {
         return null;
     }
 
     @Override
-    public Optional<Cart> findById(Long id) {
+    public Optional<Customer> findById(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public void save(Cart cart) {
+    public void save(Customer customer) {
 
     }
 
@@ -35,7 +34,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Cart findCartByCustomer(Customer customer) {
-        return cartRepo.findCartByCustomer(customer);
+    public Customer findByUser(User user) {
+        return customerRepo.findByUser(user);
     }
 }
