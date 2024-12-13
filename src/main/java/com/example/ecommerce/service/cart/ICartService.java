@@ -5,6 +5,6 @@ import com.example.ecommerce.model.Customer;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.IGenericService;
 
-public interface ICartService extends IGenericService<Cart, Long> {
+public interface ICartService extends IGenericService<Cart> {
     Cart findCartByCustomer(Customer customer);
 }
