@@ -2,18 +2,20 @@ package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.product.IProductService;
+import com.example.ecommerce.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -39,15 +41,10 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-//    @PutMapping()
-//    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-////        if (productService.findById(product.getId()) != null) {
-////            productService.save(product);
-////            return new ResponseEntity<>(HttpStatus.OK);
-////        } else {
-////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-////        }
-//        return null;
-//    }
-
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
+    
 }

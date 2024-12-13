@@ -2,7 +2,7 @@ package com.example.ecommerce.service.employee;
 
 
 import com.example.ecommerce.model.Employee;
-import com.example.ecommerce.repository.IEmployeeRepository;
+import com.example.ecommerce.repository.IEmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class EmployeeService implements IEmployeeService {
 
     @Autowired
-    private IEmployeeRepository employeeRepository;
+    private IEmployeeRepo employeeRepository;
     @Override
     public Iterable<Employee> findAll() {
         return employeeRepository.findAll();

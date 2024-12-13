@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
