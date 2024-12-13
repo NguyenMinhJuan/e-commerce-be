@@ -1,10 +1,11 @@
 package com.example.ecommerce.repository;
 
+import com.example.ecommerce.enums.RoleName;
 import com.example.ecommerce.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IRoleRepo extends JpaRepository<Role, Long> {
-    Role findByRoleName(String roleName);
+    Role findByRoleName(RoleName roleName);
 }

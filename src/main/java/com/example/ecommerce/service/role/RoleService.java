@@ -1,5 +1,6 @@
 package com.example.ecommerce.service.role;
 
+import com.example.ecommerce.enums.RoleName;
 import com.example.ecommerce.model.Role;
 import com.example.ecommerce.repository.IRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public Role findByName(String name) {
+    public Role findByName(RoleName name) {
         return roleRepo.findByRoleName(name);
     }
 }
