@@ -50,10 +50,10 @@ public class UserService implements IUserService, UserDetailsService {
     public void save(Object o) {
         User user = (User) o;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        Set<Role> roles = new HashSet<>();
-//        Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER.name());
-//        roles.add(defaultRole);
-//        user.setRoles(roles);
+        Set<Role> roles = new HashSet<>();
+        Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER);
+        roles.add(defaultRole);
+        user.setRoles(roles);
         userRepo.save(user);
     }
 
