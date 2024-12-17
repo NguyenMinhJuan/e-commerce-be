@@ -2,6 +2,7 @@ package com.example.ecommerce.service.cartitem;
 
 import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.CartItem;
+import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.ICartItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,13 @@ public class CartItemService implements ICartItemService {
     @Override
     public Iterable<CartItem> findAllByCart(Cart cart) {
         return cartItemRepo.findAllByCart(cart);
+    }
+
+    @Override
+    public void addCartItem(Cart cart, Product product) {
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setProduct(product);
+        cartItemRepo.save(cartItem);
     }
 }
