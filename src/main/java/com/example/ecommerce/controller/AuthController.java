@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.ecommerce.enums.AccountStatus.INACTIVE;
+
 @RestController
 @CrossOrigin("*")
 public class AuthController {
@@ -34,12 +36,18 @@ public class AuthController {
 
     @PostMapping("/api/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        Authentication authentication
-                = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtService.generateTokenLogin(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByUsername(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getUsername(), userDetails.getAuthorities()));
+        User loginUser= userService.findByUsername(user.getUsername());
+        String accountStatus=loginUser.getAccountStatus().toString();
+        if(accountStatus=="INACTIVE"){
+            return ResponseEntity.badRequest().body("YOUR ACCOUNT IS LOCKED, CONTACT TUAN FOR MORE INFORMATION!");
+        }else {
+            Authentication authentication
+                    = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtService.generateTokenLogin(authentication);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User currentUser = userService.findByUsername(user.getUsername());
+            return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getUsername(), userDetails.getAuthorities()));
+        }
     }
 }

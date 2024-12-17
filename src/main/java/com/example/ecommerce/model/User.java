@@ -32,4 +32,6 @@ public class User {
     )
     private Set<Role> roles;
     private String imgUrl;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
 }

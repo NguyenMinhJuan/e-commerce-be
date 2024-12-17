@@ -1,5 +1,6 @@
 package com.example.ecommerce.service.product;
 
+import com.example.ecommerce.model.Category;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.IProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ProductService implements IProductService {
     @Override
     public void delete(Long id) {
         productRepo.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Product> findAllByCategory(Category category) {
+        return productRepo.findAllByCategory(category);
     }
 }

@@ -7,4 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface IUserService extends IGenericService {
     public UserDetails loadUserByUsername(String username);
     User findByUsername(String username);
+    void setAccountStatus(User user);
 }

@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.Product;
+import com.example.ecommerce.service.category.ICategoryService;
 import com.example.ecommerce.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -37,6 +41,12 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         productService.save(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
+    }
+
+    @GetMapping({"/category/{id}"})
+    public ResponseEntity<Iterable<Product>> findALlByCategory(@PathVariable long id) {
+        Iterable<Product> products= productService.findAllByCategory(categoryService.findById(id).get());
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 //    @PutMapping()
