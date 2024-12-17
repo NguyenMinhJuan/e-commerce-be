@@ -19,6 +19,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.example.ecommerce.enums.AccountStatus.ACTIVE;
+import static com.example.ecommerce.enums.AccountStatus.INACTIVE;
+
 @Transactional
 @Service
 public class UserService implements IUserService, UserDetailsService {
