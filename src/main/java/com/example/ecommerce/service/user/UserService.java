@@ -71,6 +71,15 @@ public class UserService implements IUserService, UserDetailsService {
     }
 
     @Override
+    public void setAccountStatus(User user) {
+        if(user.getAccountStatus() == ACTIVE) {
+            user.setAccountStatus(INACTIVE);
+        }else {
+            user.setAccountStatus(ACTIVE);
+        }
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);
         return UserPrinciple.build(user);
