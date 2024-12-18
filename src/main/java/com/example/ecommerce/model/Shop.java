@@ -20,6 +20,9 @@ public class Shop {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
+
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Violation> violations;
 
