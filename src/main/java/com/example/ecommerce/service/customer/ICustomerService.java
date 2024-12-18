@@ -6,6 +6,6 @@ import com.example.ecommerce.service.IGenericService;
 
 import java.util.Optional;
 
-public interface ICustomerService extends IGenericService<Customer> {
+public interface ICustomerService extends IGenericService<Customer, Long> {
     Customer findByUser(User user);
 }

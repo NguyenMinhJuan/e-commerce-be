@@ -1,5 +1,6 @@
 package com.example.ecommerce.service.user;
 
+import com.example.ecommerce.enums.AccountStatus;
 import com.example.ecommerce.enums.RoleName;
 import com.example.ecommerce.model.Role;
 import com.example.ecommerce.model.User;
@@ -57,6 +58,7 @@ public class UserService implements IUserService, UserDetailsService {
         Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER);
         roles.add(defaultRole);
         user.setRoles(roles);
+        user.setAccountStatus(ACTIVE);
         userRepo.save(user);
     }
 
@@ -68,6 +70,15 @@ public class UserService implements IUserService, UserDetailsService {
     @Override
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    @Override
+    public void setAccountStatus(User user) {
+        if(user.getAccountStatus() == ACTIVE) {
+            user.setAccountStatus(INACTIVE);
+        }else {
+            user.setAccountStatus(ACTIVE);
+        }
     }
 
     @Override
