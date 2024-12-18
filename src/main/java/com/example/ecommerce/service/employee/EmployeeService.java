@@ -1,6 +1,7 @@
 package com.example.ecommerce.service.employee;
 
 
+import com.example.ecommerce.enums.AccountStatus;
 import com.example.ecommerce.enums.RoleName;
 import com.example.ecommerce.model.Employee;
 import com.example.ecommerce.model.Role;
@@ -46,16 +47,6 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void save(Employee employee) {
-//        User user = new User();
-//        user.setUsername();
-//        user.setPassword("1234567");
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        Set<Role> roles = new HashSet<>();
-//        Role defaultRole = roleService.findByName(RoleName.ROLE_EMPLOYEE);
-//        roles.add(defaultRole);
-//        user.setRoles(roles);
-//        userRepo.save(user);
-//        employeeRepository.save(employee);
         User user = new User();
         String baseUsername = "nhanvien";
         String username = baseUsername;
@@ -68,8 +59,9 @@ public class EmployeeService implements IEmployeeService {
         }
 
         user.setUsername(username);
-        user.setPassword("1234567");
+        user.setPassword("123456@Abc");
         user.setEmail(baseEmail);
+        user.setAccountStatus(AccountStatus.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
         Role defaultRole = roleService.findByName(RoleName.ROLE_EMPLOYEE);

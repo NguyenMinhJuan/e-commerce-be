@@ -35,4 +35,13 @@ public class UserController {
             return ResponseEntity.badRequest().body("Failed to update status");
         }
     }
+
+    @PostMapping("/checkExistUsername/{username}")
+    public ResponseEntity<?> checkExistUsername(@PathVariable String username) {
+        if(userService.existsByUsername(username)) {
+            return ResponseEntity.badRequest().body("Username already exists");
+        }else {
+            return ResponseEntity.ok().body("Successfully checked username");
+        }
+    }
 }
