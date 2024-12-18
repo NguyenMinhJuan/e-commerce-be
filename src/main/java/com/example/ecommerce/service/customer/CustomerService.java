@@ -7,34 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
 @Service
 public class CustomerService implements ICustomerService {
+    @Override
+    public Customer findByUser(User user) {
+        return null;
+    }
+
     @Autowired
-    ICustomerRepo customerRepo;
+    private ICustomerRepo customerRepo;
 
     @Override
     public Iterable<Customer> findAll() {
-        return null;
+        return customerRepo.findAll();
     }
 
     @Override
     public Optional<Customer> findById(Long id) {
-        return Optional.empty();
+        return customerRepo.findById(id);
     }
 
     @Override
     public void save(Customer customer) {
-
+        customerRepo.save(customer);
     }
 
     @Override
     public void delete(Long id) {
-
-    }
-
-    @Override
-    public Customer findByUser(User user) {
-        return customerRepo.findByUser(user);
+        customerRepo.deleteById(id);
     }
 }

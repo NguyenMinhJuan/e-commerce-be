@@ -6,6 +6,7 @@ import com.example.ecommerce.repository.IProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,10 @@ public class ProductService implements IProductService {
     @Override
     public void delete(Long id) {
         productRepo.deleteById(id);
+    }
+
+    public List<Product> searchProducts(String keyword) {
+        return productRepo.findByNameContainingIgnoreCase(keyword);
     }
 
     @Override
