@@ -1,5 +1,6 @@
 package com.example.ecommerce.model;
 
+import com.example.ecommerce.enums.ShopStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,4 +24,6 @@ public class Shop {
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Violation> violations;
 
+    @Enumerated(EnumType.STRING)
+    private ShopStatus shopStatus;
 }
