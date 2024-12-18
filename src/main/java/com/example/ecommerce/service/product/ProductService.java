@@ -34,6 +34,7 @@ public class ProductService implements IProductService {
         productRepo.deleteById(id);
     }
 
+    @Override
     public List<Product> searchProducts(String keyword) {
         return productRepo.findByNameContainingIgnoreCase(keyword);
     }

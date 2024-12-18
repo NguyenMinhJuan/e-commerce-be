@@ -21,9 +21,6 @@ public class ProductController {
     @Autowired
     private ICategoryService categoryService;
 
-    @Autowired
-    private ProductService productServicee;
-
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
         Iterable<Product> products = productService.findAll();
@@ -67,7 +64,7 @@ public class ProductController {
 
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
-        List<Product> products = productServicee.searchProducts(keyword);
+        List<Product> products = productService.searchProducts(keyword);
         return ResponseEntity.ok(products);
     }
 }
