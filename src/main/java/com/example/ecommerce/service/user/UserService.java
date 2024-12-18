@@ -19,6 +19,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.example.ecommerce.enums.AccountStatus.ACTIVE;
+import static com.example.ecommerce.enums.AccountStatus.INACTIVE;
+
 @Transactional
 @Service
 public class UserService implements IUserService, UserDetailsService {
@@ -65,6 +68,15 @@ public class UserService implements IUserService, UserDetailsService {
     @Override
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    @Override
+    public void setAccountStatus(User user) {
+        if(user.getAccountStatus() == ACTIVE) {
+            user.setAccountStatus(INACTIVE);
+        }else {
+            user.setAccountStatus(ACTIVE);
+        }
     }
 
     @Override

@@ -54,8 +54,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class).
                 authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/login","/api/products/**","/api/cart/**").permitAll()
-                                .requestMatchers("/api/user/signUp").permitAll()
+                        auth -> auth.requestMatchers("/api/login","/api/products/**","/api/cart/**","/api/images/**","/api/admin/**","/api/categories/**").permitAll()
+                                .requestMatchers("/api/user/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/api/product/**").hasAnyRole("ADMIN","EMPLOYEE")
                 )

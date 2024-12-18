@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -20,6 +22,17 @@ public class UserController {
         else {
             userService.save(user);
             return ResponseEntity.ok().body("Successfully signed up");
+        }
+    }
+
+    @PutMapping("/setStatus/{username}")
+    public ResponseEntity<?> setStatus(@PathVariable String username) {
+        try {
+            User user=userService.findByUsername(username);
+            userService.setAccountStatus(user);
+            return ResponseEntity.ok().body("Successfully updated status");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Failed to update status");
         }
     }
 }

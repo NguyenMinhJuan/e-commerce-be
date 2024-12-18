@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.Product;
+import com.example.ecommerce.service.category.ICategoryService;
 import com.example.ecommerce.service.product.IProductService;
 import com.example.ecommerce.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
 
     @Autowired
     private ProductService productServicee;
@@ -43,6 +47,23 @@ public class ProductController {
         productService.save(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
+    @GetMapping({"/category/{id}"})
+    public ResponseEntity<Iterable<Product>> findALlByCategory(@PathVariable long id) {
+        Iterable<Product> products= productService.findAllByCategory(categoryService.findById(id).get());
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+//    @PutMapping()
+//    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+////        if (productService.findById(product.getId()) != null) {
+////            productService.save(product);
+////            return new ResponseEntity<>(HttpStatus.OK);
+////        } else {
+////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+////        }
+//        return null;
+//    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
