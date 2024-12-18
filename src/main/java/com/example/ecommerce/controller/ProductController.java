@@ -3,7 +3,6 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.category.ICategoryService;
 import com.example.ecommerce.service.product.IProductService;
-import com.example.ecommerce.service.product.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +21,6 @@ public class ProductController {
 
     @Autowired
     private ICategoryService categoryService;
-
-    @Autowired
-    private ProductService productServicee;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -50,29 +46,13 @@ public class ProductController {
 
     @GetMapping({"/category/{id}"})
     public ResponseEntity<Iterable<Product>> findALlByCategory(@PathVariable long id) {
-        Iterable<Product> products= productService.findAllByCategory(categoryService.findById(id).get());
+        Iterable<Product> products = productService.findAllByCategory(categoryService.findById(id).get());
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-//    @PutMapping()
-//    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-////        if (productService.findById(product.getId()) != null) {
-////            productService.save(product);
-////            return new ResponseEntity<>(HttpStatus.OK);
-////        } else {
-////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-////        }
-//        return null;
-//    }
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
         Optional<Product> existingProduct = productService.findById(id);
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
-        List<Product> products = productServicee.searchProducts(keyword);
-        return ResponseEntity.ok(products);
-    }
         if (existingProduct.isPresent()) {
             updatedProduct.setId(id); // Ensure the ID is set for update
             productService.save(updatedProduct);
@@ -81,6 +61,11 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts (@RequestParam String keyword){
+        List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
@@ -90,6 +75,7 @@ public class ProductController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
     @PostMapping("/{id}/uploadImage")
     public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
         Optional<Product> product = productService.findById(id);
