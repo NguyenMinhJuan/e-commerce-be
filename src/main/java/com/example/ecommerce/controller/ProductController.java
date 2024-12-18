@@ -3,11 +3,13 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.category.ICategoryService;
 import com.example.ecommerce.service.product.IProductService;
+import com.example.ecommerce.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +20,9 @@ public class ProductController {
 
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private ProductService productServicee;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -60,4 +65,9 @@ public class ProductController {
 //        return null;
 //    }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productServicee.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
 }

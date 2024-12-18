@@ -4,6 +4,6 @@ import com.example.ecommerce.model.Category;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.IGenericService;
 
-public interface IProductService extends IGenericService<Product>{
+public interface IProductService extends IGenericService<Product, Long>{
     Iterable<Product> findAllByCategory(Category category);
 }
