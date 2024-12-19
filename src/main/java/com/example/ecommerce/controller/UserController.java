@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -20,7 +21,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("Username already exists");
         }
         else {
-            userService.save(user);
+            userService.registerUser(user);
             return ResponseEntity.ok().body("Successfully signed up");
         }
     }

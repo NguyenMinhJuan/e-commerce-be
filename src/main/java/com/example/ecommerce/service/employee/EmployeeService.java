@@ -33,7 +33,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Lazy
     @Autowired
-    private PasswordEncoder passwordEncoder; //lỗi thi xoa doan nay di
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<Employee> findAll() {
