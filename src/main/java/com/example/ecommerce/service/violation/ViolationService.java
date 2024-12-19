@@ -2,7 +2,6 @@ package com.example.ecommerce.service.violation;
 
 import com.example.ecommerce.model.Violation;
 import com.example.ecommerce.repository.IViolationRepo;
-import com.example.ecommerce.service.IGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

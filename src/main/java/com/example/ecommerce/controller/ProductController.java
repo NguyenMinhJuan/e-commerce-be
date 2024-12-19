@@ -3,7 +3,6 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.category.ICategoryService;
 import com.example.ecommerce.service.product.IProductService;
-import com.example.ecommerce.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,6 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.Image;
-import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.image.IImageService;
 import com.example.ecommerce.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;

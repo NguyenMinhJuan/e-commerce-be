@@ -2,7 +2,6 @@ package com.example.ecommerce.service.cart;
 
 import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.Customer;
-import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.ICartRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

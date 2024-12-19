@@ -52,14 +52,14 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
     public void save(Object o) {
-        User user = (User) o;
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER);
-        roles.add(defaultRole);
-        user.setRoles(roles);
-        user.setAccountStatus(ACTIVE);
-        userRepo.save(user);
+//        User user = (User) o;
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        Set<Role> roles = new HashSet<>();
+//        Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER);
+//        roles.add(defaultRole);
+//        user.setRoles(roles);
+//        user.setAccountStatus(ACTIVE);
+//        userRepo.save(user);
     }
 
     @Override
@@ -79,6 +79,17 @@ public class UserService implements IUserService, UserDetailsService {
         }else {
             user.setAccountStatus(ACTIVE);
         }
+    }
+
+    @Override
+    public void registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        Role defaultRole = roleService.findByName(RoleName.ROLE_CUSTOMER);
+        roles.add(defaultRole);
+        user.setRoles(roles);
+        user.setAccountStatus(ACTIVE);
+        userRepo.save(user);
     }
 
     @Override
