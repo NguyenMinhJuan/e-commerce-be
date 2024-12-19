@@ -33,7 +33,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Lazy
     @Autowired
-    private PasswordEncoder passwordEncoder; //lỗi thi xoa doan nay di
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<Employee> findAll() {
@@ -47,6 +47,46 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void save(Employee employee) {
+//        User user = new User();
+//        String baseUsername = "nhanvien";
+//        String username = baseUsername;
+//        String baseEmail = "nhanvien@gmail.com";
+//        int i = 1;
+//
+//        while (userRepo.existsByUsername(username)) {
+//            username = baseUsername + i;
+//            i++;
+//        }
+//
+//        user.setUsername(username);
+//        user.setPassword("123456@Abc");
+//        user.setEmail(baseEmail);
+//        user.setAccountStatus(AccountStatus.ACTIVE);
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        Set<Role> roles = new HashSet<>();
+//        Role defaultRole = roleService.findByName(RoleName.ROLE_EMPLOYEE);
+//        roles.add(defaultRole);
+//        user.setRoles(roles);
+//        userRepo.save(user);
+//
+//        employee.setUser(user);
+//        employeeRepository.save(employee);
+    }
+
+    @Override
+    public void delete(Long id) {
+        employeeRepository.deleteById(id);
+    }
+
+
+    @Transactional
+    @Override
+    public void deleteEmployeeByUserId(Long id) {
+        employeeRepository.deleteByUserId(id);
+    }
+
+    @Override
+    public void registerEmployee(Employee employee) {
         User user = new User();
         String baseUsername = "nhanvien";
         String username = baseUsername;
@@ -71,17 +111,5 @@ public class EmployeeService implements IEmployeeService {
 
         employee.setUser(user);
         employeeRepository.save(employee);
-    }
-
-    @Override
-    public void delete(Long id) {
-        employeeRepository.deleteById(id);
-    }
-
-
-    @Transactional
-    @Override
-    public void deleteEmployeeByUserId(Long id) {
-        employeeRepository.deleteByUserId(id);
     }
 }

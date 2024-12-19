@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
-@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
@@ -42,7 +41,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> createEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    public ResponseEntity<Employee> editEmployee(@PathVariable Long id, @RequestBody Employee employee) {
         Optional<Employee> Epl = employeeService.findById(id);
         if (!Epl.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
