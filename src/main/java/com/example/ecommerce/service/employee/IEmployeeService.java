@@ -5,5 +5,5 @@ import com.example.ecommerce.service.IGenericService;
 
 public interface IEmployeeService extends IGenericService<Employee, Long> {
     void deleteEmployeeByUserId(Long id);
-
+    void registerEmployee(Employee employee);
 }
