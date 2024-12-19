@@ -2,6 +2,7 @@ package com.example.ecommerce.service.shop;
 
 import com.example.ecommerce.enums.AccountStatus;
 import com.example.ecommerce.enums.RoleName;
+import com.example.ecommerce.enums.ShopStatus;
 import com.example.ecommerce.model.Role;
 import com.example.ecommerce.model.Shop;
 
@@ -79,6 +80,7 @@ public class ShopService implements IShopService {
         userRepository.save(user);
 
         shop.setUser(user);
+        shop.setShopStatus(ShopStatus.PENDING);
         shopRepository.save(shop);
     }
 }

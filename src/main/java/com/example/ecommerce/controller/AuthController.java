@@ -38,7 +38,7 @@ public class AuthController {
         User loginUser= userService.findByUsername(user.getUsername());
         String accountStatus=loginUser.getAccountStatus().toString();
         if(accountStatus=="INACTIVE"){
-            return ResponseEntity.badRequest().body("YOUR ACCOUNT IS LOCKED, CONTACT TUAN FOR MORE INFORMATION!");
+            return ResponseEntity.badRequest().body("YOUR ACCOUNT HAS BEEN LOCKED,TRY AGAIN LATER!");
         }else {
             Authentication authentication
                     = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));

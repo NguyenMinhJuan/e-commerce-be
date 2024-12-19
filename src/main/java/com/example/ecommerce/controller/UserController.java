@@ -16,10 +16,10 @@ public class UserController {
 
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody User user) {
-        if(userService.existsByUsername(user.getUsername())) {
+        try {
+            userService.existsByUsername(user.getUsername());
             return ResponseEntity.badRequest().body("Username already exists");
-        }
-        else {
+        } catch (Exception e) {
             userService.registerUser(user);
             return ResponseEntity.ok().body("Successfully signed up");
         }
@@ -28,19 +28,20 @@ public class UserController {
     @PutMapping("/setStatus/{username}")
     public ResponseEntity<?> setStatus(@PathVariable String username) {
         try {
-            User user=userService.findByUsername(username);
+            User user = userService.findByUsername(username);
             userService.setAccountStatus(user);
             return ResponseEntity.ok().body("Successfully updated status");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to update status");
         }
     }
 
     @PostMapping("/checkExistUsername/{username}")
     public ResponseEntity<?> checkExistUsername(@PathVariable String username) {
-        if(userService.existsByUsername(username)) {
+        try {
+            userService.existsByUsername(username);
             return ResponseEntity.badRequest().body("Username already exists");
-        }else {
+        } catch (Exception e) {
             return ResponseEntity.ok().body("Successfully checked username");
         }
     }
