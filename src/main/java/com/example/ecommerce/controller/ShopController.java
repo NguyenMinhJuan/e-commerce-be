@@ -4,9 +4,7 @@ import com.example.ecommerce.model.Shop;
 import com.example.ecommerce.service.shop.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +21,14 @@ public class ShopController {
         return ResponseEntity.ok(shops);
     }
 
+    @PostMapping("/signUp")
+    public ResponseEntity<?> createStore(@RequestBody Shop shop) {
+        try {
+            shopService.registerShop(shop);
+            return ResponseEntity.ok().body("Please wait a few days for us to approve."
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to register!");
+        }
+    }
 }
