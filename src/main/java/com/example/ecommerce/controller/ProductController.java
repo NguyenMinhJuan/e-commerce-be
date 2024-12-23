@@ -1,7 +1,8 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.model.Image;
 import com.example.ecommerce.model.Product;
-import com.example.ecommerce.service.category.ICategoryService;
+import com.example.ecommerce.service.image.IImageService;
 import com.example.ecommerce.service.product.IProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ProductController {
     private IProductService productService;
 
     @Autowired
-    private ICategoryService categoryService;
+    private IImageService imageService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -44,28 +45,17 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @GetMapping({"/category/{id}"})
-    public ResponseEntity<Iterable<Product>> findALlByCategory(@PathVariable long id) {
-        Iterable<Product> products = productService.findAllByCategory(categoryService.findById(id).get());
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
         Optional<Product> existingProduct = productService.findById(id);
         if (existingProduct.isPresent()) {
-            updatedProduct.setId(id); // Ensure the ID is set for update
+            updatedProduct.setId(id);
             productService.save(updatedProduct);
             return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts (@RequestParam String keyword){
-        List<Product> products = productService.searchProducts(keyword);
-        return ResponseEntity.ok(products);
-    }
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
@@ -80,10 +70,11 @@ public class ProductController {
     public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
         Optional<Product> product = productService.findById(id);
         if (product.isPresent() && !file.isEmpty()) {
-            String imageUrl = "uploads/" + file.getOriginalFilename(); // Simulate storing the image
-            product.get().getImages().add(imageUrl);
-            productService.save(product.get());
-            return new ResponseEntity<>("Image uploaded successfully: " + imageUrl, HttpStatus.OK);
+            Image image = new Image();
+            image.setProduct(product.get());
+            image.setImgUrl("uploads/" + file.getOriginalFilename());
+            imageService.save(image);
+            return new ResponseEntity<>("Image uploaded successfully: " + image.getImgUrl(), HttpStatus.OK);
         }
         return new ResponseEntity<>("Product not found or file is empty", HttpStatus.BAD_REQUEST);
     }

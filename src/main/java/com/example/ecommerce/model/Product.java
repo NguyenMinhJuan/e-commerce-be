@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
 public class Product {
@@ -25,15 +23,11 @@ public class Product {
     @Min(value = 1, message = "Price must be greater than 0")
     private double price;
 
-    @ElementCollection
-    private List<String> images; // List of image URLs
-
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
-
 }
