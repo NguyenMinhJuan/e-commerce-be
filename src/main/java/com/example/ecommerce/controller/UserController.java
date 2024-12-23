@@ -17,11 +17,13 @@ public class UserController {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody User user) {
         try {
-            userService.existsByUsername(user.getUsername());
-            return ResponseEntity.badRequest().body("Username already exists");
-        } catch (Exception e) {
+            if (userService.existsByUsername(user.getUsername())) {
+                return ResponseEntity.badRequest().body("Username already exists");
+            }
             userService.registerUser(user);
             return ResponseEntity.ok().body("Successfully signed up");
+        } catch (Exception e) {
+            return ResponseEntity.ok().body("Something went wrong!");
         }
     }
 

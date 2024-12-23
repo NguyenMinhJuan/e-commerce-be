@@ -15,22 +15,22 @@ public class CartService implements ICartService {
 
     @Override
     public Iterable<Cart> findAll() {
-        return null;
+        return cartRepo.findAll();
     }
 
     @Override
     public Optional<Cart> findById(Long id) {
-        return Optional.empty();
+        return cartRepo.findById(id);
     }
 
     @Override
     public void save(Cart cart) {
-
+        cartRepo.save(cart);
     }
 
     @Override
     public void delete(Long id) {
-
+        cartRepo.deleteById(id);
     }
 
     @Override
