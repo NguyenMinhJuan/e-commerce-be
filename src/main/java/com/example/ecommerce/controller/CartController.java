@@ -64,4 +64,39 @@ public class CartController {
         }else
             return new ResponseEntity<>("Product dont exist in cart",HttpStatus.BAD_REQUEST);
     }
+
+    @PutMapping("/increaseQuantityByOne/{productId}/{username}")
+    public ResponseEntity<?> increaseQuantityByOne(@PathVariable Long productId, @PathVariable String username){
+        User user = userService.findByUsername(username);
+        Customer customer = customerService.findByUser(user);
+        Cart cart = cartService.findCartByCustomer(customer);
+        Iterable<CartItem> cartItems = cartItemService.findAllByCart(cart);
+        Product product = productService.findById(productId).get();
+
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getProduct().getId().equals(product.getId())) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartItemService.save(cartItem);
+                break;
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{itemId}")
+    public ResponseEntity<?> deleteCartItem(@PathVariable Long itemId) {
+        Optional<CartItem> optionalItem = cartItemService.findById(itemId);
+
+        if (optionalItem.isEmpty()) {
+            return new ResponseEntity<>("Cart item not found", HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            cartItemService.delete(itemId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error deleting cart item: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.ecommerce.service.cartitem;
 import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.CartItem;
 import com.example.ecommerce.model.Product;
+import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.IGenericService;
 
 public interface ICartItemService extends IGenericService<CartItem, Long> {
