@@ -8,4 +8,5 @@ import com.example.ecommerce.service.IGenericService;
 public interface ICartItemService extends IGenericService<CartItem, Long> {
     Iterable<CartItem> findAllByCart(Cart cart);
     void addCartItem (Cart cart, Product product);
+    Boolean checkIsExistInCart(Cart cart, Product product);
 }

@@ -1,7 +1,6 @@
 package com.example.ecommerce.service.image;
 
 import com.example.ecommerce.model.Image;
-import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.IImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
