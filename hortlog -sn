@@ -1,0 +1,90 @@
+* [33md3cb859[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtuan[m[33m, [m[1;31morigin/tuan[m[33m)[m tuan push
+* [33m0fa5ad2[m tuan lam dang ky merchant
+* [33m686d13c[m tuan sua login va xoa import thua
+* [33m925486c[m tuan sua login
+* [33m2678216[m tuan gop 2 service làm  1
+* [33mb8f00ac[m tuan sua entity
+*   [33mb39053d[m Merge branch 'develop' of https://github.com/NguyenMinhJuan/e-commerce-be into tuan
+[32m|[m[33m\[m  
+[32m|[m *   [33m575b97c[m[33m ([m[1;31morigin/develop[m[33m)[m Merge pull request #11 from NguyenMinhJuan/duy
+[32m|[m [34m|[m[35m\[m  
+[32m|[m [34m|[m * [33md43eb57[m edit file
+[32m|[m [34m|[m *   [33mab28b9e[m Merge remote-tracking branch 'origin/develop' into duy
+[32m|[m [34m|[m [36m|[m[34m\[m  
+[32m|[m [34m|[m [36m|[m[34m/[m  
+[32m|[m [34m|[m[34m/[m[36m|[m   
+[32m|[m * [36m|[m   [33m26a4949[m Merge pull request #10 from NguyenMinhJuan/tuan
+[32m|[m [1;32m|[m[1;33m\[m [36m\[m  
+[32m|[m * [1;33m\[m [36m\[m   [33m3c7124f[m Merge pull request #9 from NguyenMinhJuan/tuan
+[32m|[m [1;34m|[m[1;35m\[m [1;33m\[m [36m\[m  
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [33mecb7ca7[m add entity shop and violation
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m *   [33m7615ddd[m Merge remote-tracking branch 'origin/develop' into duy
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m [1;36m|[m[31m\[m  
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33mea4a5fa[m add file
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33m9c77312[m tuan fix bug
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33mc364c33[m tuan lam gio hang
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33mb28313b[m tuan lam trang chu
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33m30ba276[m tuan update dangky
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33m5920611[m tuan push
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33m83dfef3[m test
+[32m|[m [1;34m|[m [1;35m|[m [1;33m|[m * [31m|[m [33mc8f7311[m Demo model
+* [1;34m|[m [1;35m|[m [1;33m|[m [31m|[m [31m|[m [33mb0c7c54[m tuan pull tu dev
+[1;33m|[m [1;34m|[m[1;33m_[m[1;35m|[m[1;33m/[m [31m/[m [31m/[m  
+[1;33m|[m[1;33m/[m[1;34m|[m [1;35m|[m [31m|[m [31m|[m   
+* [1;34m|[m [1;35m|[m [31m|[m [31m|[m [33m604f17c[m tuan lam disable account
+* [1;34m|[m [1;35m|[m [31m|[m [31m|[m [33m6433695[m tuan lam back end load product by category
+* [1;34m|[m [1;35m|[m [31m|[m [31m|[m [33mc6e8822[m tuan lam disable account
+[1;35m|[m [1;34m|[m[1;35m/[m [31m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[1;34m|[m [31m|[m [31m|[m   
+* [1;34m|[m [31m|[m [31m|[m [33me1e28f2[m tuan merge
+* [1;34m|[m [31m|[m [31m|[m   [33m04332ab[m Merge branch 'hoang' of https://github.com/NguyenMinhJuan/e-commerce-be into tuan
+[32m|[m[33m\[m [1;34m\[m [31m\[m [31m\[m  
+[32m|[m * [1;34m|[m [31m|[m [31m|[m [33m32ecd12[m[33m ([m[1;31morigin/hoang[m[33m)[m Hoang test GIT
+[32m|[m [1;34m|[m[1;34m/[m [31m/[m [31m/[m  
+[32m|[m * [31m|[m [31m|[m   [33mf24a2c8[m Merge pull request #8 from NguyenMinhJuan/tuan
+[32m|[m [31m|[m[35m\[m [31m\[m [31m\[m  
+[32m|[m [31m|[m [35m|[m[31m_[m[31m|[m[31m/[m  
+[32m|[m [31m|[m[31m/[m[35m|[m [31m|[m   
+[32m|[m * [35m|[m [31m|[m   [33mec5edb8[m Merge pull request #6 from NguyenMinhJuan/tuan
+[32m|[m [36m|[m[1;31m\[m [35m\[m [31m\[m  
+[32m|[m * [1;31m\[m [35m\[m [31m\[m   [33m05a9ca8[m Merge pull request #5 from NguyenMinhJuan/tuan
+[32m|[m [1;32m|[m[1;33m\[m [1;31m\[m [35m\[m [31m\[m  
+[32m|[m * [1;33m\[m [1;31m\[m [35m\[m [31m\[m   [33mfc03900[m Merge pull request #4 from NguyenMinhJuan/tuan
+[32m|[m [1;34m|[m[1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [31m\[m  
+[32m|[m * [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [31m\[m   [33m80e03cb[m Merge pull request #3 from NguyenMinhJuan/tuan
+[32m|[m [1;36m|[m[31m\[m [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [31m\[m  
+* [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [31m|[m [33md19bacc[m tuan pull
+[35m|[m [1;36m|[m[35m_[m[31m|[m[35m_[m[1;35m|[m[35m_[m[1;33m|[m[35m_[m[1;31m|[m[35m/[m [31m/[m  
+[35m|[m[35m/[m[1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;31m|[m [31m|[m   
+* [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;31m|[m [31m|[m [33m56cb81e[m tuan lam giao dien admin
+[1;31m|[m [1;36m|[m[1;31m_[m[31m|[m[1;31m_[m[1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m [31m/[m  
+[1;31m|[m[1;31m/[m[1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [31m|[m   
+* [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [31m|[m [33m6f557ea[m tuan fix bug
+* [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [31m|[m [33m03d8eeb[m tuan lam gio hang
+[1;33m|[m [1;36m|[m[1;33m_[m[31m|[m[1;33m_[m[1;35m|[m[1;33m/[m [31m/[m  
+[1;33m|[m[1;33m/[m[1;36m|[m [31m|[m [1;35m|[m [31m|[m   
+* [1;36m|[m [31m|[m [1;35m|[m [31m|[m [33m67f1bbb[m tuan lam trang chu
+[1;35m|[m [1;36m|[m[1;35m_[m[31m|[m[1;35m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[1;36m|[m [31m|[m [31m|[m   
+* [1;36m|[m [31m|[m [31m|[m [33m2b47466[m tuan update dangky
+[31m|[m [1;36m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[1;36m|[m [31m|[m   
+* [1;36m|[m [31m|[m [33m4f9192d[m tuan push
+* [1;36m|[m [31m|[m [33m4573e67[m Merge branch 'develop' of https://github.com/NguyenMinhJuan/e-commerce-be into tuan
+[32m|[m[1;36m\[m[1;36m|[m [31m|[m 
+[32m|[m * [31m|[m [33m24abb0c[m Merge pull request #2 from NguyenMinhJuan/duy
+[32m|[m [34m|[m[31m\[m[31m|[m 
+[32m|[m [34m|[m * [33mb597f43[m add file develop
+* [34m|[m [35m|[m [33m4ba90b6[m Merge branch 'develop' of https://github.com/NguyenMinhJuan/e-commerce-be into tuan
+[36m|[m[34m\[m[34m|[m [35m|[m 
+* [34m|[m [35m|[m [33mf4cd594[m test
+* [34m|[m [35m|[m [33ma6017b0[m Demo model
+[1;31m|[m [34m|[m [35m|[m * [33m7ad757b[m[33m ([m[1;32mdevelop[m[33m)[m tuan xu ly logout
+[1;31m|[m [34m|[m [35m|[m[34m/[m  
+[1;31m|[m [34m|[m[34m/[m[35m|[m   
+[1;31m|[m * [35m|[m [33m22b1be5[m Merge pull request #1 from NguyenMinhJuan/duy
+[1;31m|[m[1;31m/[m[35m|[m [35m|[m 
+[1;31m|[m [35m|[m[35m/[m  
+[1;31m|[m * [33m0b3b42d[m[33m ([m[1;31morigin/duy[m[33m)[m add file
+[1;31m|[m[1;31m/[m  
+* [33mb51db34[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/huy[m[33m, [m[1;32mmain[m[33m, [m[1;32mhuy[m[33m, [m[1;32mhoang[m[33m, [m[1;32mduy[m[33m)[m first commit
