@@ -41,11 +41,27 @@ public class CartController {
 
     @PostMapping("/add/{productId}/{username}")
     public ResponseEntity<?> addCartItem(@PathVariable Long productId, @PathVariable String username){
+        try {
+            User user = userService.findByUsername(username);
+            Customer customer=customerService.findByUser(user);
+            Cart cart=cartService.findCartByCustomer(customer);
+            Optional<Product> product = productService.findById(productId);
+            cartItemService.addCartItem(cart,product.get());
+            return new ResponseEntity<>("Add to cart successfully!",HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("Add to cart to failed",HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/isProductExistInCart/{username}/{productId}")
+    public ResponseEntity<?> isProductExistInCart(@PathVariable String username,@PathVariable Long productId){
         User user = userService.findByUsername(username);
-        Customer customer=customerService.findByUser(user);
-        Cart cart=cartService.findCartByCustomer(customer);
-        Optional<Product> product = productService.findById(productId);
-        cartItemService.addCartItem(cart,product.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        Customer customer = customerService.findByUser(user);
+        Cart cart =cartService.findCartByCustomer(customer);
+        Product product = productService.findById(productId).get();
+        if (cartItemService.checkIsExistInCart(cart,product)) {
+            return new ResponseEntity<>("Product exist in cart",HttpStatus.OK);
+        }else
+            return new ResponseEntity<>("Product dont exist in cart",HttpStatus.BAD_REQUEST);
     }
 }

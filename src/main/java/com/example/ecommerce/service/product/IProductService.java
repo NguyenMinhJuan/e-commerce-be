@@ -11,4 +11,5 @@ public interface IProductService extends IGenericService<Product, Long>{
     Iterable<Product> findAllByCategory(Category category);
     List<Product> searchProducts(String keyword);
     Iterable<Product> findAllByShop(Shop shop);
+    Boolean isProductInStock (Product product);
 }

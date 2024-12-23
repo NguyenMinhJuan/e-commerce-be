@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 @Service
 public class CustomerService implements ICustomerService {
-    @Override
-    public Customer findByUser(User user) {
-        return null;
-    }
-
     @Autowired
     private ICustomerRepo customerRepo;
+
+    @Override
+    public Customer findByUser(User user) {
+        return customerRepo.findByUser(user);
+    }
 
     @Override
     public Iterable<Customer> findAll() {

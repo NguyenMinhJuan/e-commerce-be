@@ -46,6 +46,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Boolean isProductInStock(Product product) {
+        if(product.getQuantity()==0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Iterable<Product> findAllByCategory(Category category) {
         return productRepo.findAllByCategory(category);
     }
