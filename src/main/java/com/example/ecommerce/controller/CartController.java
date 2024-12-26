@@ -99,4 +99,20 @@ public class CartController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/increase/{itemId}")
+    public ResponseEntity<?> increaseQuantity(@PathVariable Long itemId) {
+        CartItem cartItem = cartItemService.findById(itemId).get();
+        cartItemService.increaseQuantity(cartItem);
+        cartItemService.save(cartItem);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/decrease/{itemId}")
+    public ResponseEntity<?> decreaseQuantity(@PathVariable Long itemId) {
+        CartItem cartItem = cartItemService.findById(itemId).get();
+        cartItemService.decreaseQuantity(cartItem);
+        cartItemService.save(cartItem);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

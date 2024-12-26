@@ -59,4 +59,14 @@ public class CartItemService implements ICartItemService {
         }
         return false;
     }
+
+    @Override
+    public void increaseQuantity(CartItem cartItem) {
+        cartItem.setQuantity(cartItem.getQuantity() + 1);
+    }
+
+    @Override
+    public void decreaseQuantity(CartItem cartItem) {
+        cartItem.setQuantity(cartItem.getQuantity() - 1);
+    }
 }
