@@ -10,6 +10,6 @@ public interface ICartItemService extends IGenericService<CartItem, Long> {
     Iterable<CartItem> findAllByCart(Cart cart);
     void addCartItem (Cart cart, Product product);
     Boolean checkIsExistInCart(Cart cart, Product product);
-    void increaseQuantity(CartItem cartItem);
+    Boolean increaseQuantity(CartItem cartItem);
     void decreaseQuantity(CartItem cartItem);
 }

@@ -9,6 +9,7 @@ import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.IEmployeeRepo;
 import com.example.ecommerce.repository.IUserRepo;
 import com.example.ecommerce.service.role.IRoleService;
+import com.example.ecommerce.service.user.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -34,6 +35,8 @@ public class EmployeeService implements IEmployeeService {
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
 
     @Override
     public Iterable<Employee> findAll() {
@@ -112,4 +115,6 @@ public class EmployeeService implements IEmployeeService {
         employee.setUser(user);
         employeeRepository.save(employee);
     }
+
+
 }

@@ -66,21 +66,29 @@ public class CartController {
     }
 
     @PutMapping("/increaseQuantityByOne/{productId}/{username}")
-    public ResponseEntity<?> increaseQuantityByOne(@PathVariable Long productId, @PathVariable String username){
-        User user = userService.findByUsername(username);
-        Customer customer = customerService.findByUser(user);
-        Cart cart = cartService.findCartByCustomer(customer);
-        Iterable<CartItem> cartItems = cartItemService.findAllByCart(cart);
-        Product product = productService.findById(productId).get();
+    public ResponseEntity<?> increaseQuantityByOne(@PathVariable Long productId, @PathVariable String username) {
+        try {
+            User user = userService.findByUsername(username);
+            Customer customer = customerService.findByUser(user);
+            Cart cart = cartService.findCartByCustomer(customer);
+            Iterable<CartItem> cartItems = cartItemService.findAllByCart(cart);
+            Product product = productService.findById(productId).get();
 
-        for (CartItem cartItem : cartItems) {
-            if (cartItem.getProduct().getId().equals(product.getId())) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartItemService.save(cartItem);
-                break;
+            for (CartItem cartItem : cartItems) {
+                if (cartItem.getProduct().getId().equals(product.getId())) {
+                    // Check if increasing quantity would exceed product's available quantity
+                    if (cartItem.getQuantity() >= cartItem.getProduct().getQuantity()) {
+                        return new ResponseEntity<>("Cannot increase quantity: Not enough stock available", HttpStatus.BAD_REQUEST);
+                    }
+                    cartItem.setQuantity(cartItem.getQuantity() + 1);
+                    cartItemService.save(cartItem);
+                    return new ResponseEntity<>(cartItem, HttpStatus.OK);
+                }
             }
+            return new ResponseEntity<>("Item not found in cart", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error updating cart: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{itemId}")

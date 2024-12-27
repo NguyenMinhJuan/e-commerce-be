@@ -1,5 +1,6 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.enums.ShopStatus;
 import com.example.ecommerce.model.Shop;
 import com.example.ecommerce.service.shop.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,15 @@ public class ShopController {
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable long shopId) {
         return ResponseEntity.ok(shopService.findById(shopId));
+    }
+
+    @PutMapping("/{shopId}/{status}")
+    public ResponseEntity<?> updateStatus(@PathVariable long shopId, @PathVariable boolean status) {
+        if(status==true){
+            shopService.setShopStatus(shopService.findById(shopId).get(),ShopStatus.OPERATIONAL);
+        }else {
+            shopService.setShopStatus(shopService.findById(shopId).get(),ShopStatus.REJECTED);
+        }
+        return ResponseEntity.ok().body("Updated status successfully!");
     }
 }

@@ -61,8 +61,12 @@ public class CartItemService implements ICartItemService {
     }
 
     @Override
-    public void increaseQuantity(CartItem cartItem) {
+    public Boolean increaseQuantity(CartItem cartItem) {
+        if (cartItem.getQuantity() >= cartItem.getProduct().getQuantity()) {
+            return false;
+        }
         cartItem.setQuantity(cartItem.getQuantity() + 1);
+        return true;
     }
 
     @Override

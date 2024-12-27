@@ -83,4 +83,10 @@ public class ShopService implements IShopService {
         shop.setShopStatus(ShopStatus.PENDING);
         shopRepository.save(shop);
     }
+
+    @Override
+    public void setShopStatus(Shop shop, ShopStatus status) {
+        shop.setShopStatus(status);
+        shopRepository.save(shop);
+    }
 }
