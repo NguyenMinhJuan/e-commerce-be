@@ -56,21 +56,7 @@ public class ShopService implements IShopService {
     }
 
     @Override
-    public void registerShop(Shop shop) {
-        User user = new User();
-        String baseUsername = "nhacungcap";
-        String username = baseUsername;
-        String baseEmail = "nhacungcap@gmail.com";
-        int i = 1;
-
-        while (userRepository.existsByUsername(username)) {
-            username = baseUsername + i;
-            i++;
-        }
-
-        user.setUsername(username);
-        user.setPassword("123456@Abc");
-        user.setEmail(baseEmail);
+    public void registerShop(Shop shop,User user) {
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
@@ -80,6 +66,7 @@ public class ShopService implements IShopService {
         userRepository.save(user);
 
         shop.setUser(user);
+
         shop.setShopStatus(ShopStatus.PENDING);
         shopRepository.save(shop);
     }
@@ -88,5 +75,10 @@ public class ShopService implements IShopService {
     public void setShopStatus(Shop shop, ShopStatus status) {
         shop.setShopStatus(status);
         shopRepository.save(shop);
+    }
+
+    @Override
+    public Shop findByUser(User user) {
+       return shopRepository.findByUser(user);
     }
 }

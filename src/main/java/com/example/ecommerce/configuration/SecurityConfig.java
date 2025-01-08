@@ -5,6 +5,7 @@ import com.example.ecommerce.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -50,15 +51,36 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf(AbstractHttpConfigurer::disable).addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class).
+//                authorizeHttpRequests(
+//                        auth -> auth.requestMatchers("/api/login","/api/products/**","/api/cart/**","/api/images/**","/api/admin/**","/api/categories/**","/api/shops/**","/api/notifications/**").permitAll()
+//                                .requestMatchers("/api/user/**").permitAll()
+//                                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                                .requestMatchers("/api/product/**").hasAnyRole("ADMIN","EMPLOYEE")
+//                )
+//                .build();
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class).
-                authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/login","/api/products/**","/api/cart/**","/api/images/**","/api/admin/**","/api/categories/**","/api/shops/**").permitAll()
-                                .requestMatchers("/api/user/**").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/api/product/**").hasAnyRole("ADMIN","EMPLOYEE")
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/products/**").permitAll()
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/cart/**").permitAll()
+                        .requestMatchers("/api/images/**").permitAll()
+                        .requestMatchers("/api/categories/**").permitAll()
+                        .requestMatchers("/api/shops/**").permitAll()
+                        .requestMatchers("/api/notifications/**").permitAll()
+                        .requestMatchers("/api/user/**").permitAll()
+                        .requestMatchers("/client/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                 )
+                .cors(AbstractHttpConfigurer::disable)  // thêm dòng này
                 .build();
     }
 }

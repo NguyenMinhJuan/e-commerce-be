@@ -12,4 +12,6 @@ public interface ICartItemService extends IGenericService<CartItem, Long> {
     Boolean checkIsExistInCart(Cart cart, Product product);
     Boolean increaseQuantity(CartItem cartItem);
     void decreaseQuantity(CartItem cartItem);
+    int countByCart(Cart cart);
+    void deleteAllByCart(Cart cart);
 }

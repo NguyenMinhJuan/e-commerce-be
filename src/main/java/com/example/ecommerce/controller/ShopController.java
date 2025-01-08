@@ -2,8 +2,12 @@ package com.example.ecommerce.controller;
 
 import com.example.ecommerce.enums.ShopStatus;
 import com.example.ecommerce.model.Shop;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.model.wrapper.ShopWrapper;
 import com.example.ecommerce.service.shop.ShopService;
+import com.example.ecommerce.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,9 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<List<Shop>> getStores() {
         List<Shop> shops = (List<Shop>) shopService.findAll();
@@ -23,13 +30,11 @@ public class ShopController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> createStore(@RequestBody Shop shop) {
-        try {
-            shopService.registerShop(shop);
-            return ResponseEntity.ok().body("Thank you for reaching out. Please allow a few days, and we will get back to you via email as soon as possible!");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to register!");
-        }
+    public ResponseEntity<?> createStore(@RequestBody ShopWrapper shopWrapper) {
+        Shop shop = shopWrapper.getShop();
+        User user = shopWrapper.getUser();
+        shopService.registerShop(shop, user);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{shopId}")
@@ -39,11 +44,24 @@ public class ShopController {
 
     @PutMapping("/{shopId}/{status}")
     public ResponseEntity<?> updateStatus(@PathVariable long shopId, @PathVariable boolean status) {
-        if(status==true){
-            shopService.setShopStatus(shopService.findById(shopId).get(),ShopStatus.OPERATIONAL);
-        }else {
-            shopService.setShopStatus(shopService.findById(shopId).get(),ShopStatus.REJECTED);
+        if (status) {
+            shopService.setShopStatus(shopService.findById(shopId).get(), ShopStatus.OPERATIONAL);
+        } else {
+            shopService.setShopStatus(shopService.findById(shopId).get(), ShopStatus.REJECTED);
         }
         return ResponseEntity.ok().body("Updated status successfully!");
+    }
+
+    @GetMapping("/getShopStatus/{username}")
+    public ResponseEntity<?> getShopStatus(@PathVariable String username) {
+        User user = userService.findByUsername(username);
+        Shop shop = shopService.findByUser(user);
+        if (shop.getShopStatus() == ShopStatus.OPERATIONAL) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else if (shop.getShopStatus() == ShopStatus.PENDING) {
+            return new ResponseEntity<>("Please wait admin to approve", HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<>("You have been rejected!", HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -1,18 +1,23 @@
 package com.example.ecommerce.controller;
 
-import com.example.ecommerce.model.Product;
-import com.example.ecommerce.model.Shop;
+import com.example.ecommerce.model.*;
+import com.example.ecommerce.service.cart.CartService;
 import com.example.ecommerce.service.category.ICategoryService;
+import com.example.ecommerce.service.customer.CustomerService;
 import com.example.ecommerce.service.product.IProductService;
 import com.example.ecommerce.service.shop.IShopService;
+import com.example.ecommerce.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -24,6 +29,12 @@ public class ProductController {
 
     @Autowired
     private IShopService shopService;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
@@ -43,10 +54,16 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping()
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        productService.save(product);
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<?> createProduct(
+            @RequestPart("product") Product product,
+            @RequestPart("files") MultipartFile[] files) {
+        try {
+            Product savedProduct = productService.createProduct(product, files);
+            return ResponseEntity.ok(savedProduct);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping({"/category/{id}"})
@@ -72,10 +89,11 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/shop/{id}")
-    public ResponseEntity<Iterable<Product>> getProductsByShop(@PathVariable long id) {
+    @GetMapping("/shop/{name}")
+    public ResponseEntity<Iterable<Product>> getProductsByShop(@PathVariable String name) {
         try {
-            Shop shop = shopService.findById(id).get();
+            User user = userService.findByUsername(name);
+            Shop shop = shopService.findByUser(user);
             return new ResponseEntity<>(productService.findAllByShop(shop), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -86,11 +104,27 @@ public class ProductController {
     public ResponseEntity<?> checkInStock(@PathVariable long productId) {
         try {
             Optional<Product> product = productService.findById(productId);
-            if(productService.isProductInStock(product.get())){
-                return new ResponseEntity<>("In stock",HttpStatus.OK);
-            }return new ResponseEntity<>("Out of stock",HttpStatus.NOT_FOUND);
-        }catch (Exception e) {
-            return new ResponseEntity<>("Something went wrong",HttpStatus.BAD_REQUEST);
+            if (productService.isProductInStock(product.get())) {
+                return new ResponseEntity<>("In stock", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Out of stock", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/updateProductStock/{username}")
+    public ResponseEntity<?> updateProductStock(@PathVariable String username) {
+        try {
+            User user = userService.findByUsername(username);
+            Customer customer = customerService.findByUser(user);
+            Cart cart = cartService.findCartByCustomer(customer);
+            productService.updateProductStock(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }

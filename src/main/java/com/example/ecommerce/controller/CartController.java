@@ -32,37 +32,37 @@ public class CartController {
     private ICustomerService customerService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<Iterable<CartItem>> findAllCartItemByUser(@PathVariable String username){
+    public ResponseEntity<Iterable<CartItem>> findAllCartItemByUser(@PathVariable String username) {
         User user = userService.findByUsername(username);
-        Customer customer=customerService.findByUser(user);
-        Cart cart=cartService.findCartByCustomer(customer);
-        return new ResponseEntity<>(cartItemService.findAllByCart(cart),HttpStatus.OK);
+        Customer customer = customerService.findByUser(user);
+        Cart cart = cartService.findCartByCustomer(customer);
+        return new ResponseEntity<>(cartItemService.findAllByCart(cart), HttpStatus.OK);
     }
 
     @PostMapping("/add/{productId}/{username}")
-    public ResponseEntity<?> addCartItem(@PathVariable Long productId, @PathVariable String username){
+    public ResponseEntity<?> addCartItem(@PathVariable Long productId, @PathVariable String username) {
         try {
             User user = userService.findByUsername(username);
-            Customer customer=customerService.findByUser(user);
-            Cart cart=cartService.findCartByCustomer(customer);
+            Customer customer = customerService.findByUser(user);
+            Cart cart = cartService.findCartByCustomer(customer);
             Optional<Product> product = productService.findById(productId);
-            cartItemService.addCartItem(cart,product.get());
-            return new ResponseEntity<>("Add to cart successfully!",HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("Add to cart to failed",HttpStatus.BAD_REQUEST);
+            cartItemService.addCartItem(cart, product.get());
+            return new ResponseEntity<>("Add to cart successfully!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Add to cart to failed", HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/isProductExistInCart/{username}/{productId}")
-    public ResponseEntity<?> isProductExistInCart(@PathVariable String username,@PathVariable Long productId){
+    public ResponseEntity<?> isProductExistInCart(@PathVariable String username, @PathVariable Long productId) {
         User user = userService.findByUsername(username);
         Customer customer = customerService.findByUser(user);
-        Cart cart =cartService.findCartByCustomer(customer);
+        Cart cart = cartService.findCartByCustomer(customer);
         Product product = productService.findById(productId).get();
-        if (cartItemService.checkIsExistInCart(cart,product)) {
-            return new ResponseEntity<>("Product exist in cart",HttpStatus.OK);
-        }else
-            return new ResponseEntity<>("Product dont exist in cart",HttpStatus.BAD_REQUEST);
+        if (cartItemService.checkIsExistInCart(cart, product)) {
+            return new ResponseEntity<>("Product exist in cart", HttpStatus.OK);
+        } else
+            return new ResponseEntity<>("Product dont exist in cart", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/increaseQuantityByOne/{productId}/{username}")
@@ -122,5 +122,32 @@ public class CartController {
         cartItemService.decreaseQuantity(cartItem);
         cartItemService.save(cartItem);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/countCartItem/{cartId}")
+    public ResponseEntity<?> countCartItem(@PathVariable Long cartId) {
+        int quantity= cartItemService.countByCart(cartService.findById(cartId).get());
+        return new ResponseEntity<>(quantity,HttpStatus.OK);
+    }
+
+//    @PostMapping("/checkout/{username}")
+//    public ResponseEntity<?> checkout(@PathVariable String username) {
+//        User user = userService.findByUsername(username);
+//        Customer customer = customerService.findByUser(user);
+//        Cart cart = cartService.findCartByCustomer(customer);
+//
+//    }
+
+    @DeleteMapping("/deleteAllByCart/{username}")
+    public ResponseEntity<?> deleteAllByCart(@PathVariable String username) {
+        try{
+            User user = userService.findByUsername(username);
+            Customer customer = customerService.findByUser(user);
+            Cart cart = cartService.findCartByCustomer(customer);
+            cartItemService.deleteAllByCart(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -73,4 +73,20 @@ public class CartItemService implements ICartItemService {
     public void decreaseQuantity(CartItem cartItem) {
         cartItem.setQuantity(cartItem.getQuantity() - 1);
     }
+
+    @Override
+    public int countByCart(Cart cart) {
+        return cartItemRepo.countByCart(cart);
+    }
+
+    @Override
+    public void deleteAllByCart(Cart cart) {
+       Iterable<CartItem> cartItems= cartItemRepo.findAllByCart(cart);
+       for (CartItem cartItem : cartItems) {
+           cartItem.setProduct(null);
+           cartItem.setCart(null);
+           cartItemRepo.save(cartItem);
+       }
+       cartItemRepo.deleteAll(cartItems);
+    }
 }
